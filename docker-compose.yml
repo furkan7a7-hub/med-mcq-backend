@@ -1,0 +1,12 @@
+version: "3.9"
+services:
+  api:
+    build: .
+    environment:
+      - API_KEY=${API_KEY}
+      - DATABASE_URL=${DATABASE_URL}
+      - PORT=${PORT:-8000}
+    ports:
+      - "${PORT:-8000}:8000"
+    volumes:
+      - ./:/app
