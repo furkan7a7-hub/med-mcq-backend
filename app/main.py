@@ -18,6 +18,22 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+from fastapi.middleware.cors import CORSMiddleware
+
+# السماح للواجهة تتصل من أي مكان (مثل StackBlitz)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],      # تقدر تحدد دومين معين بدال النجمة لو تريد أمان أكثر
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# هذا المسار يخلي السيرفر يجاوب بـ 200 OK بدل التحويل
+@app.get("/healthz", include_in_schema=False)
+def health_check():
+    return {"ok": True}
+
 
 # Redirect root URL to /docs
 @app.get("/", include_in_schema=False)
