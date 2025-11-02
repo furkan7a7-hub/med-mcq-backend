@@ -1,16 +1,16 @@
-from fastapi.responses import RedirectResponse
-
-@app.get("/", include_in_schema=False)
-def root():
-    return RedirectResponse(url="/docs")
-import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import RedirectResponse
 
 from .routers import subjects, topics, questions, quizzes, explanations, import_csv
 
-app = FastAPI(title="Med MCQ Backend (MVP)")
+app = FastAPI(
+    title="MedMCQ API",
+    description="Backend API for MedMCQ platform",
+    version="1.0.0"
+)
 
+# Allow all origins (you can restrict this later)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -19,13 +19,16 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/health")
-def health():
-    return {"status":"ok"}
+# Redirect root URL to /docs
+@app.get("/", include_in_schema=False)
+def root():
+    return RedirectResponse(url="/docs")
 
-app.include_router(subjects.router, prefix="")
-app.include_router(topics.router, prefix="")
-app.include_router(questions.router, prefix="")
-app.include_router(quizzes.router, prefix="")
-app.include_router(explanations.router, prefix="")
-app.include_router(import_csv.router, prefix="")
+# Routers
+app.include_router(subjects.router)
+app.include_router(topics.router)
+app.include_router(questions.router)
+app.include_router(quizzes.router)
+app.include_router(explanations.router)
+app.include_router(import_csv.router)
+
