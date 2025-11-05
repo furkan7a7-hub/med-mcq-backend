@@ -1,7 +1,7 @@
 from typing import List, Optional
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlmodel import select
-from ..database import get_session
+from app.database import get_session
 from ..models import Question, Option
 from ..deps import require_admin
 
