@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse
 
-from .routers import subjects, topics, questions, quizzes, explanations, import_csv
+from .routers import subjects, topics, questions, quizzes, explanations 
 
 app = FastAPI(
     title="MedMCQ API",
